@@ -223,7 +223,7 @@ class DicDb
 	public function __clone()
 	{
 		trigger_error('Clone is not permitted.', E_USER_ERROR);
-    }
+	}
 
     /**
 	* Return error when try deserialize object
@@ -233,7 +233,7 @@ class DicDb
     public function __wakeup()
     {
     	trigger_error("Could not deserialize ". get_class($this) ." class.", E_USER_ERROR);
-	}
+    }
 }
 
 ?>
