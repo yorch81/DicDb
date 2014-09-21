@@ -1,11 +1,6 @@
 <?php
-
+require_once('config.php');
 require_once('DicDb.class.php');
-
-$hostname = '';
-$username = '';
-$password = '';
-$dbname   = '';
 
 $dic = DicDb::getInstance(DicDb::MSSQLSERVER, $hostname, $username, $password, $dbname);  
 

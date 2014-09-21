@@ -122,7 +122,8 @@ class DicDb
 	* @param string $esquema Esquema o * para todos los esquemas
 	* @return array | null
 	*/
-	public function obtnTablas($esquema){
+	public function obtnTablas($esquema)
+	{
 		if (!is_null($this->_dictionary)){
 			return $this->_dictionary->obtnTablas($esquema);
 		}
@@ -136,7 +137,8 @@ class DicDb
 	* @param string $esquema Esquema o * para todos los esquemas
 	* @return array | null
 	*/
-	public function obtnProcedimientos($esquema){
+	public function obtnProcedimientos($esquema)
+	{
 		if (!is_null($this->_dictionary)){
 			return $this->_dictionary->obtnProcedimientos($esquema);
 		}
@@ -150,7 +152,8 @@ class DicDb
 	* @param string $esquema Esquema o * para todos los esquemas
 	* @return array | null
 	*/
-	public function obtnFunciones($esquema){
+	public function obtnFunciones($esquema)
+	{
 		if (!is_null($this->_dictionary)){
 			return $this->_dictionary->obtnFunciones($esquema);
 		}
@@ -165,7 +168,8 @@ class DicDb
 	* @param string $tabla Tabla o * para todas las tablas
 	* @return array | null
 	*/
-	public function obtnCampos($esquema, $tabla){
+	public function obtnCampos($esquema, $tabla)
+	{
 		if (!is_null($this->_dictionary)){
 			return $this->_dictionary->obtnCampos($esquema, $tabla);
 		}
@@ -180,7 +184,8 @@ class DicDb
 	* @param string $tabla Tabla o * para todas las tablas
 	* @return array
 	*/
-	public function obtnTriggers($esquema, $tabla){
+	public function obtnTriggers($esquema, $tabla)
+	{
 		if (!is_null($this->_dictionary)){
 			return $this->_dictionary->obtnTriggers($esquema, $tabla);
 		}
@@ -198,7 +203,8 @@ class DicDb
 	* @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
 	* @return true | false
 	*/
-	public function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo){
+	public function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo)
+	{
 		$retValue = false;
 
 		if (!is_null($this->_dictionary)){
@@ -216,7 +222,7 @@ class DicDb
 	*/
 	public function __clone()
 	{
-        trigger_error('Clone is not permitted.', E_USER_ERROR);
+		trigger_error('Clone is not permitted.', E_USER_ERROR);
     }
 
     /**
@@ -226,7 +232,7 @@ class DicDb
 	*/
     public function __wakeup()
     {
-	  trigger_error("Could not deserialize ". get_class($this) ." class.", E_USER_ERROR);
+    	trigger_error("Could not deserialize ". get_class($this) ." class.", E_USER_ERROR);
 	}
 }
 

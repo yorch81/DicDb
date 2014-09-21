@@ -140,7 +140,8 @@ class MySQLDic extends DicType
 	* @param string $esquema Esquema o * para todos los esquemas
 	* @return array
 	*/
-	public function obtnTablas($esquema){
+	public function obtnTablas($esquema)
+	{
 		$retArray = array();
 
 		if ($this->_connection->isConnected())
@@ -155,7 +156,8 @@ class MySQLDic extends DicType
 	* @param string $esquema Esquema o * para todos los esquemas
 	* @return array
 	*/
-	public function obtnProcedimientos($esquema){
+	public function obtnProcedimientos($esquema)
+	{
 		$retArray = array();
 
 		if ($this->_connection->isConnected())
@@ -170,7 +172,8 @@ class MySQLDic extends DicType
 	* @param string $esquema Esquema o * para todos los esquemas
 	* @return array
 	*/
-	public function obtnFunciones($esquema){
+	public function obtnFunciones($esquema)
+	{
 		$retArray = array();
 
 		if ($this->_connection->isConnected())
@@ -186,7 +189,8 @@ class MySQLDic extends DicType
 	* @param string $tabla Tabla o * para todas las tablas
 	* @return array
 	*/
-	public function obtnCampos($esquema, $tabla){
+	public function obtnCampos($esquema, $tabla)
+	{
 		$retArray = array();
 
 		if ($this->_connection->isConnected())
@@ -202,7 +206,8 @@ class MySQLDic extends DicType
 	* @param string $tabla Tabla o * para todas las tablas
 	* @return array
 	*/
-	public function obtnTriggers($esquema, $tabla){
+	public function obtnTriggers($esquema, $tabla)
+	{
 		$retArray = array();
 
 		if ($this->_connection->isConnected())
@@ -221,7 +226,8 @@ class MySQLDic extends DicType
 	* @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
 	* @return true | false
 	*/
-	public function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo){
+	public function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo)
+	{
 		$retValue = false;
 
 		if ($this->_connection->isConnected()){
@@ -309,7 +315,8 @@ class SQLServerDic extends DicType
 	* @param string $esquema Esquema o * para todos los esquemas
 	* @return array
 	*/
-	public function obtnTablas($esquema){
+	public function obtnTablas($esquema)
+	{
 		$retArray = array();
 
 		if ($this->_connection->isConnected())
@@ -324,7 +331,8 @@ class SQLServerDic extends DicType
 	* @param string $esquema Esquema o * para todos los esquemas
 	* @return array
 	*/
-	public function obtnProcedimientos($esquema){
+	public function obtnProcedimientos($esquema)
+	{
 		$retArray = array();
 
 		if ($this->_connection->isConnected())
@@ -339,7 +347,8 @@ class SQLServerDic extends DicType
 	* @param string $esquema Esquema o * para todos los esquemas
 	* @return array
 	*/
-	public function obtnFunciones($esquema){
+	public function obtnFunciones($esquema)
+	{
 		$retArray = array();
 
 		if ($this->_connection->isConnected())
@@ -355,7 +364,8 @@ class SQLServerDic extends DicType
 	* @param string $tabla Tabla o * para todas las tablas
 	* @return array
 	*/
-	public function obtnCampos($esquema, $tabla){
+	public function obtnCampos($esquema, $tabla)
+	{
 		$retArray = array();
 
 		if ($this->_connection->isConnected())
@@ -371,7 +381,8 @@ class SQLServerDic extends DicType
 	* @param string $tabla Tabla o * para todas las tablas
 	* @return array
 	*/
-	public function obtnTriggers($esquema, $tabla){
+	public function obtnTriggers($esquema, $tabla)
+	{
 		$retArray = array();
 
 		if ($this->_connection->isConnected())
@@ -390,7 +401,8 @@ class SQLServerDic extends DicType
 	* @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
 	* @return true | false
 	*/
-	public function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo){
+	public function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo)
+	{
 		$retValue = true;
 
 		if ($this->_connection->isConnected()){
