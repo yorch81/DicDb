@@ -230,10 +230,10 @@ class DicDb
 	*
 	* @return error
 	*/
-    public function __wakeup()
-    {
-    	trigger_error("Could not deserialize ". get_class($this) ." class.", E_USER_ERROR);
-    }
+	public function __wakeup()
+	{
+		trigger_error("Could not deserialize ". get_class($this) ." class.", E_USER_ERROR);
+	}
 }
 
 ?>
