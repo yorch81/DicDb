@@ -50,14 +50,14 @@
           <div class="col-md-4 col-lg-4">
             <div id="cnt_esquemas">
               <div class="list-group">
-                <a href="#" class="list-group-item active tbl_esquemas" tbltype= "1" tblId="0" tblComment="Esquemas">Esquemas</a>
+                <a href="#" data-toggle="tooltip" title="Esquemas" class="list-group-item active tbl_esquemas" tbltype= "1" tblId="0" tblComment="Esquemas">Esquemas</a>
                 <?php 
                   $arrEsquemas = $data['esquemas'];
                   $total = count($arrEsquemas);
 
                   for($i=0; $i<$total; $i++){
-                    echo '<a href="#" class="list-group-item tbl_esquemas" tbltype= "1" tblId="'.  $arrEsquemas[$i]["id"] . 
-                    '" tblComment="'.  $arrEsquemas[$i]["descripcion"] . '">'  . $arrEsquemas[$i]["esquema"] . "</a>";
+                    echo '<a href="#" data-toggle="tooltip" class="list-group-item tbl_esquemas" tbltype= "1" tblId="'.  $arrEsquemas[$i]["id"] . 
+                    '" title="'.  $arrEsquemas[$i]["descripcion"] . '" ' . '" tblComment="'.  $arrEsquemas[$i]["descripcion"] . '">'  . $arrEsquemas[$i]["esquema"] . "</a>";
                   }
                 ?>
               </div>
@@ -101,9 +101,7 @@
                 <div class="modal-body">
                     <div class="text-center">
                         <button type="button" class="close" style="float: none;" data-dismiss="modal" aria-hidden="true">×</button>
-                        <!--<img src="./img/procesando.gif" class="icon" />-->
-                        <h5 id="label-process">Procesando... 
-                        </h5>
+                        <h5 id="label-process">Procesando...</h5>
                     </div>
                 </div>
             </div>
@@ -112,9 +110,12 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="./metro-bootstrap/bootstrap.min.js"></script>
+    <script src="./metro-bootstrap/bootstrap-tooltip.js"></script>
 
     <script>
       $(document).ready(function(){
+        $(".tbl_esquemas").tooltip();
+
         $(".tbl_esquemas").click(function(){
           alert($(this).attr("tblComment"));
 
