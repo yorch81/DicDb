@@ -7,10 +7,6 @@
     <meta name="author" content="Jorge Alberto Ponce Turrubiates">
     <title>DicDb Data Dictionary</title>
 
-    <!-- Bootstrap 
-    <link href="./bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
-    -->
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -27,7 +23,7 @@
     }
 
     .navbar {
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
     </style>
   </head>
@@ -52,15 +48,15 @@
       <div class="jumbotron">      
         <div class="row">
           <div class="col-md-4 col-lg-4">
-            <div id="tlb_esquemas">
+            <div id="cnt_esquemas">
               <div class="list-group">
-                <a href="#" class="list-group-item active" tbltype= "1" tblId="0" tblComment="Esquemas">Esquemas</a>
+                <a href="#" class="list-group-item active tbl_esquemas" tbltype= "1" tblId="0" tblComment="Esquemas">Esquemas</a>
                 <?php 
                   $arrEsquemas = $data['esquemas'];
                   $total = count($arrEsquemas);
 
                   for($i=0; $i<$total; $i++){
-                    echo '<a href="#" class="list-group-item" tbltype= "1" tblId="'.  $arrEsquemas[$i]["id"] . 
+                    echo '<a href="#" class="list-group-item tbl_esquemas" tbltype= "1" tblId="'.  $arrEsquemas[$i]["id"] . 
                     '" tblComment="'.  $arrEsquemas[$i]["descripcion"] . '">'  . $arrEsquemas[$i]["esquema"] . "</a>";
                   }
                 ?>
@@ -83,19 +79,48 @@
           </div>
 
           <div class="col-md-4 col-lg-4">
-            <div id="esquemas">
-              <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Messages</a></li>
-              </ul>
+            <div id="tab_tablas">
+              <div class="list-group">
+                <a href="#" class="list-group-item active">
+                  Tablas
+                </a>
+                <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                <a href="#" class="list-group-item">Morbi leo risus</a>
+                <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                <a href="#" class="list-group-item">Vestibulum at eros</a>
+              </div>
             </div>
           </div>
         </div>
 
     </div> <!-- /container -->
 
+    <div class="modal modal-static fade" id="processing-modal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="text-center">
+                        <button type="button" class="close" style="float: none;" data-dismiss="modal" aria-hidden="true">×</button>
+                        <!--<img src="./img/procesando.gif" class="icon" />-->
+                        <h5 id="label-process">Procesando... 
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="./bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    <script src="./metro-bootstrap/bootstrap.min.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        $(".tbl_esquemas").click(function(){
+          alert($(this).attr("tblComment"));
+
+          $('#processing-modal').modal('toggle');
+        });
+      });
+    </script>
   </body>
 </html>
