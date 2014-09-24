@@ -27,11 +27,7 @@
     }
 
     .navbar {
-      margin-bottom: 10px;
-    }
-
-    .nav-stacked > li {
-      float: none;
+      margin-bottom: 5px;
     }
     </style>
   </head>
@@ -56,28 +52,33 @@
       <div class="jumbotron">      
         <div class="row">
           <div class="col-md-4 col-lg-4">
-            <div id="tab_esquemas">
-              <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#">Esquemas</a></li>
+            <div id="tlb_esquemas">
+              <div class="list-group">
+                <a href="#" class="list-group-item active" tbltype= "1" tblId="0" tblComment="Esquemas">Esquemas</a>
                 <?php 
                   $arrEsquemas = $data['esquemas'];
-
                   $total = count($arrEsquemas);
+
                   for($i=0; $i<$total; $i++){
-                    echo "<li><a href=\"#\">" . $arrEsquemas[$i]["esquema"] . "</a></li>";
+                    echo '<a href="#" class="list-group-item" tbltype= "1" tblId="'.  $arrEsquemas[$i]["id"] . 
+                    '" tblComment="'.  $arrEsquemas[$i]["descripcion"] . '">'  . $arrEsquemas[$i]["esquema"] . "</a>";
                   }
                 ?>
-              </ul>
+              </div>
             </div>
           </div>
 
           <div class="col-md-4 col-lg-4">
-            <div id="esquemas">
-              <ul class="nav nav-pills nav-stacked">
-                <li class="active">Home</li>
-                <li>Profile</li>
-                <li><a href="#">Messages</a></li>
-              </ul>
+            <div id="tab_tablas">
+              <div class="list-group">
+                <a href="#" class="list-group-item active">
+                  Tablas
+                </a>
+                <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                <a href="#" class="list-group-item">Morbi leo risus</a>
+                <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                <a href="#" class="list-group-item">Vestibulum at eros</a>
+              </div>
             </div>
           </div>
 
@@ -93,14 +94,6 @@
         </div>
 
     </div> <!-- /container -->
-
-     <div id="esquemas">
-              <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Messages</a></li>
-              </ul>
-            </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="./bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
