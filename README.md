@@ -8,6 +8,8 @@ y usando el Patrón de Diseño Singleton.
 * [PHP 5.4.1 or higher](http://www.php.net/)
 * [mysqli extension](http://www.php.net/)
 * [sqlsrv extension](http://msdn.microsoft.com/en-us/sqlserver/ff657782.aspx/)
+* [Metro Bootstrap](http://talkslab.github.io/metro-bootstrap/)
+* [Slim Framework](http://www.slimframework.com/)
 
 ## Developer Documentation ##
 En el código con phpDoc.
