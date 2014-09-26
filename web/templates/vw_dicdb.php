@@ -25,6 +25,10 @@
     .navbar {
       margin-bottom: 10px;
     }
+
+    .list-group-item {
+      padding: 4px 15px;
+    }
     </style>
   </head>
   <body>
