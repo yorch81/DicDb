@@ -27,7 +27,11 @@
     }
 
     .list-group-item {
-      padding: 4px 15px;
+      padding: 4px 10px;
+    }
+
+    .tooltip > .tooltip-inner {
+      background-color: #428bca;
     }
     </style>
   </head>
@@ -54,13 +58,13 @@
           <div class="col-md-4 col-lg-4">
             <div id="cnt_esquemas">
               <div class="list-group">
-                <a href="#" data-toggle="tooltip" title="Esquemas" class="list-group-item active tbl_esquemas" tbltype= "1" tblId="0" tblComment="Esquemas">Esquemas</a>
+                <a href="#" data-toggle="tooltip" data-placement="right" title="Esquemas" class="list-group-item active tbl_esquemas" tbltype= "1" tblId="0" tblComment="Esquemas">Esquemas</a>
                 <?php 
                   $arrEsquemas = $data['esquemas'];
                   $total = count($arrEsquemas);
 
                   for($i=0; $i<$total; $i++){
-                    echo '<a href="#" data-toggle="tooltip" class="list-group-item tbl_esquemas" tbltype= "1" tblId="'.  $arrEsquemas[$i]["id"] . 
+                    echo '<a href="#" data-toggle="tooltip" data-placement="right" class="list-group-item tbl_esquemas" tbltype= "1" tblId="'.  $arrEsquemas[$i]["id"] . 
                     '" title="'.  $arrEsquemas[$i]["descripcion"] . '" ' . '" tblComment="'.  $arrEsquemas[$i]["descripcion"] . '">'  . $arrEsquemas[$i]["esquema"] . "</a>";
                   }
                 ?>
