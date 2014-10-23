@@ -22,71 +22,72 @@ abstract class DicType
 	protected $_connection = null;
 
 	/**
-	* Regresa un array con los Esquemas de BD
-	*
-	* @return array
-	*/
+	 * Regresa un array con los Esquemas de BD
+	 *
+	 * @return array
+	 */
 	public abstract function obtnEsquemas();
 
 	/**
-	* Regresa un array con las tablas de un Esquema
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @return array
-	*/
+	 * Regresa un array con las tablas de un Esquema
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @return array
+	 */
 	public abstract function obtnTablas($esquema);
 
 	/**
-	* Regresa un array con los Procedimientos Almacenados de un Esquema
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @return array
-	*/
+	 * Regresa un array con los Procedimientos Almacenados de un Esquema
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @return array
+	 */
 	public abstract function obtnProcedimientos($esquema);
 
 	/**
-	* Regresa un array con las Funciones de un Esquema
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @return array
-	*/
+	 * Regresa un array con las Funciones de un Esquema
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @return array
+	 */
 	public abstract function obtnFunciones($esquema);
 
 	/**
-	* Regresa un array con los Campos de una Tabla
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @param string $tabla Tabla o * para todas las tablas
-	* @return array
-	*/
+	 * Regresa un array con los Campos de una Tabla
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @param string $tabla Tabla o * para todas las tablas
+	 * @return array
+	 */
 	public abstract function obtnCampos($esquema, $tabla);
 
 	/**
-	* Regresa un array con los Triggers de una Tabla
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @param string $tabla Tabla o * para todas las tablas
-	* @return array
-	*/
+	 * Regresa un array con los Triggers de una Tabla
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @param string $tabla Tabla o * para todas las tablas
+	 * @return array
+	 */
 	public abstract function obtnTriggers($esquema, $tabla);
 
 	/**
-	* Actualiza los comentarios de un Objeto de la BD
-	*
-	* @param string $esquema Esquema
-	* @param string $tabla Objeto de BD (Tabla, Procedimiento, Funcion, Vista)
-	* @param string $campo Campo
-	* @param string $descripcion Nueva descripcion
-	* @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
-	* @return true | false
-	*/
+	 * Actualiza los comentarios de un Objeto de la BD
+	 *
+	 * @param string $esquema Esquema
+	 * @param string $tabla Objeto de BD (Tabla, Procedimiento, Funcion, Vista)
+	 * @param string $campo Campo
+	 * @param string $descripcion Nueva descripcion
+	 * @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
+	 * @return true | false
+	 */
 	public abstract function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo);
 
+
 	/**
-	* Return if exists connection
-	*
-	* @return true | false 
-	*/
+ 	 * Return if exists connection
+	 *
+	 * @return true | false
+	 */
 	public function isConnected()
 	{
 		return !is_null($this->_connection);
@@ -106,24 +107,24 @@ abstract class DicType
 class MySQLDic extends DicType
 {
 	/**
-	* Constructor de la clase, solo crea el objeto conexión
-	*
-	* @param string $hostname Hostname
-	* @param string $username Usuario de la BD
-	* @param string $password Password de la BD
-	* @param string $dbname Nombre de la BD
-	* @return instance
-	*/
+	 * Constructor de la clase, solo crea el objeto conexión
+	 *
+	 * @param string $hostname Hostname
+	 * @param string $username Usuario de la BD
+	 * @param string $password Password de la BD
+	 * @param string $dbname Nombre de la BD
+	 * @return instance
+	 */
 	public function __construct($hostname, $username, $password, $dbname)
 	{
 		$this->_connection = MyDb::getConnection('MySQLDb', $hostname, $username, $password, $dbname);
 	}
 
 	/**
-	* Regresa un array con los Esquemas de BD
-	*
-	* @return array
-	*/
+	 * Regresa un array con los Esquemas de BD
+	 *
+	 * @return array
+	 */
 	public function obtnEsquemas()
 	{
 		$retArray = array();
@@ -135,11 +136,11 @@ class MySQLDic extends DicType
 	}
 
 	/**
-	* Regresa un array con las tablas de un Esquema
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @return array
-	*/
+	 * Regresa un array con las tablas de un Esquema
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @return array
+	 */
 	public function obtnTablas($esquema)
 	{
 		$retArray = array();
@@ -151,11 +152,11 @@ class MySQLDic extends DicType
 	}
 
 	/**
-	* Regresa un array con los Procedimientos Almacenados de un Esquema
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @return array
-	*/
+	 * Regresa un array con los Procedimientos Almacenados de un Esquema
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @return array
+	 */
 	public function obtnProcedimientos($esquema)
 	{
 		$retArray = array();
@@ -167,11 +168,11 @@ class MySQLDic extends DicType
 	}
 
 	/**
-	* Regresa un array con las Funciones de un Esquema
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @return array
-	*/
+	 * Regresa un array con las Funciones de un Esquema
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @return array
+	 */
 	public function obtnFunciones($esquema)
 	{
 		$retArray = array();
@@ -183,12 +184,12 @@ class MySQLDic extends DicType
 	}
 
 	/**
-	* Regresa un array con los Campos de una Tabla
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @param string $tabla Tabla o * para todas las tablas
-	* @return array
-	*/
+	 * Regresa un array con los Campos de una Tabla
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @param string $tabla Tabla o * para todas las tablas
+	 * @return array
+	 */
 	public function obtnCampos($esquema, $tabla)
 	{
 		$retArray = array();
@@ -200,12 +201,12 @@ class MySQLDic extends DicType
 	}
 
 	/**
-	* Regresa un array con los Triggers de una Tabla
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @param string $tabla Tabla o * para todas las tablas
-	* @return array
-	*/
+	 * Regresa un array con los Triggers de una Tabla
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @param string $tabla Tabla o * para todas las tablas
+	 * @return array
+	 */
 	public function obtnTriggers($esquema, $tabla)
 	{
 		$retArray = array();
@@ -217,15 +218,15 @@ class MySQLDic extends DicType
 	}
 
 	/**
-	* Actualiza los comentarios de un Objeto de la BD
-	*
-	* @param string $esquema Esquema
-	* @param string $tabla Objeto de BD (Tabla, Procedimiento, Funcion, Vista)
-	* @param string $campo Campo
-	* @param string $descripcion Nueva descripcion
-	* @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
-	* @return true | false
-	*/
+	 * Actualiza los comentarios de un Objeto de la BD
+	 *
+	 * @param string $esquema Esquema
+	 * @param string $tabla Objeto de BD (Tabla, Procedimiento, Funcion, Vista)
+	 * @param string $campo Campo
+	 * @param string $descripcion Nueva descripcion
+	 * @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
+	 * @return true | false
+	 */
 	public function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo)
 	{
 		$retValue = false;
@@ -281,24 +282,24 @@ class MySQLDic extends DicType
 class SQLServerDic extends DicType
 {
 	/**
-	* Constructor de la clase, solo crea el objeto conexión
-	*
-	* @param string $hostname Hostname
-	* @param string $username Usuario de la BD
-	* @param string $password Password de la BD
-	* @param string $dbname Nombre de la BD
-	* @return instance
-	*/
+	 * Constructor de la clase, solo crea el objeto conexión
+	 *
+	 * @param string $hostname Hostname
+	 * @param string $username Usuario de la BD
+	 * @param string $password Password de la BD
+	 * @param string $dbname Nombre de la BD
+	 * @return instance
+	 */
 	public function __construct($hostname, $username, $password, $dbname)
 	{
 		$this->_connection = MyDb::getConnection('SQLServerDb', $hostname, $username, $password, $dbname);
 	}
 
 	/**
-	* Regresa un array con los Esquemas de BD
-	*
-	* @return array
-	*/
+	 * Regresa un array con los Esquemas de BD
+	 *
+	 * @return array
+	 */
 	public function obtnEsquemas()
 	{
 		$retArray = array();
@@ -310,11 +311,11 @@ class SQLServerDic extends DicType
 	}
 
 	/**
-	* Regresa un array con las tablas de un Esquema
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @return array
-	*/
+	 * Regresa un array con las tablas de un Esquema
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @return array
+	 */
 	public function obtnTablas($esquema)
 	{
 		$retArray = array();
@@ -326,11 +327,11 @@ class SQLServerDic extends DicType
 	}
 
 	/**
-	* Regresa un array con los Procedimientos Almacenados de un Esquema
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @return array
-	*/
+	 * Regresa un array con los Procedimientos Almacenados de un Esquema
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @return array
+	 */
 	public function obtnProcedimientos($esquema)
 	{
 		$retArray = array();
@@ -342,11 +343,11 @@ class SQLServerDic extends DicType
 	}
 
 	/**
-	* Regresa un array con las Funciones de un Esquema
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @return array
-	*/
+	 * Regresa un array con las Funciones de un Esquema
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @return array
+	 */
 	public function obtnFunciones($esquema)
 	{
 		$retArray = array();
@@ -358,12 +359,12 @@ class SQLServerDic extends DicType
 	}
 
 	/**
-	* Regresa un array con los Campos de una Tabla
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @param string $tabla Tabla o * para todas las tablas
-	* @return array
-	*/
+	 * Regresa un array con los Campos de una Tabla
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @param string $tabla Tabla o * para todas las tablas
+	 * @return array
+	 */
 	public function obtnCampos($esquema, $tabla)
 	{
 		$retArray = array();
@@ -375,12 +376,12 @@ class SQLServerDic extends DicType
 	}
 
 	/**
-	* Regresa un array con los Triggers de una Tabla
-	*
-	* @param string $esquema Esquema o * para todos los esquemas
-	* @param string $tabla Tabla o * para todas las tablas
-	* @return array
-	*/
+	 * Regresa un array con los Triggers de una Tabla
+	 *
+	 * @param string $esquema Esquema o * para todos los esquemas
+	 * @param string $tabla Tabla o * para todas las tablas
+	 * @return array
+	 */
 	public function obtnTriggers($esquema, $tabla)
 	{
 		$retArray = array();
@@ -392,15 +393,15 @@ class SQLServerDic extends DicType
 	}
 
 	/**
-	* Actualiza los comentarios de un Objeto de la BD
-	*
-	* @param string $esquema Esquema
-	* @param string $tabla Objeto de BD (Tabla, Procedimiento, Funcion, Vista)
-	* @param string $campo Campo
-	* @param string $descripcion Nueva descripcion
-	* @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
-	* @return true | false
-	*/
+	 * Actualiza los comentarios de un Objeto de la BD
+	 *
+	 * @param string $esquema Esquema
+	 * @param string $tabla Objeto de BD (Tabla, Procedimiento, Funcion, Vista)
+	 * @param string $campo Campo
+	 * @param string $descripcion Nueva descripcion
+	 * @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
+	 * @return true | false
+	 */
 	public function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo)
 	{
 		$retValue = true;
