@@ -1,0 +1,19 @@
+{
+    "name": "yorch/dicdb",
+    "description": "DicDb Maneja y actualiza comentarios de objetos en una BD SQL Server o MySQL",
+    "homepage": "https://github.com/yorch81/DicDb",
+    "type": "project",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jorge Alberto Ponce Turrubiates",
+            "email": "the.yorch@gmail.com",
+            "homepage": "http://the-yorch.blogspot.mx/"
+        }
+    ],
+    "require": {
+    	"php": ">=5.4.0",
+        "slim/slim": "2.*",
+        "yorch/mydb": "dev-master"
+    }
+}
