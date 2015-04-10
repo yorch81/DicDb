@@ -18,8 +18,8 @@
 
     <style>
     body {
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
 
     .navbar {
@@ -33,6 +33,17 @@
     .tooltip > .tooltip-inner {
       background-color: #428bca;
     }
+
+    .scroll-500{
+        height: 500px;
+        border-top: solid 1px #BBB;
+        border-left: solid 1px #BBB;
+        border-bottom: solid 1px #FFF;
+        border-right: solid 1px #FFF;
+        background: #FFF;
+        overflow: scroll;
+        padding: 5px;
+      }
     </style>
   </head>
   <body>
@@ -44,90 +55,208 @@
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
               <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">DicDb</a>
           </div>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active" id="btn_credits"><a href="#">Créditos<span class="sr-only">(current)</span></a></li>
+          </ul>
         </div><!--/.container-fluid -->
       </div>
 
       <div class="jumbotron">      
         <div class="row">
-          <div class="col-md-4 col-lg-4">
-            <div id="cnt_esquemas">
-              <div class="list-group">
-                <a href="#" data-toggle="tooltip" data-placement="right" title="Esquemas" class="list-group-item active tbl_esquemas" tbltype= "1" tblId="0" tblComment="Esquemas">Esquemas</a>
-                <?php 
-                  $arrEsquemas = $data['esquemas'];
-                  $total = count($arrEsquemas);
 
-                  for($i=0; $i<$total; $i++){
-                    echo '<a href="#" data-toggle="tooltip" data-placement="right" class="list-group-item tbl_esquemas" tbltype= "1" tblId="'.  $arrEsquemas[$i]["id"] . 
-                    '" title="'.  $arrEsquemas[$i]["descripcion"] . '" ' . '" tblComment="'.  $arrEsquemas[$i]["descripcion"] . '">'  . $arrEsquemas[$i]["esquema"] . "</a>";
-                  }
-                ?>
+          <div class="col-md-4 col-lg-4">
+            <div id="cnt_esquemas" class="scroll-500">
+              <div class="list-group">
+                <a href="#" data-toggle="tooltip" data-placement="right" title="Esquemas" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Esquemas">Esquemas</a>
+                <div id="pnl_esquemas">
+                  <?php 
+                    echo $data['esquemas'];
+                  ?>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="col-md-4 col-lg-4">
-            <div id="tab_tablas">
+            <div id="cnt_tablas" class="scroll-500">
               <div class="list-group">
-                <a href="#" class="list-group-item active">
-                  Tablas
-                </a>
-                <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item">Morbi leo risus</a>
-                <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item">Vestibulum at eros</a>
+                <a href="#" data-toggle="tooltip" data-placement="right" title="Tablas" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Tablas">Tablas & Vistas</a>
+                <div id="pnl_tablas">
+                  
+                </div>
               </div>
             </div>
           </div>
 
           <div class="col-md-4 col-lg-4">
-            <div id="tab_tablas">
+            <div id="cnt_campos" class="scroll-500">
               <div class="list-group">
-                <a href="#" class="list-group-item active">
-                  Tablas
-                </a>
-                <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item">Morbi leo risus</a>
-                <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item">Vestibulum at eros</a>
+                <a href="#" data-toggle="tooltip" data-placement="right" title="Campos" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Campos">Campos</a>
+                <div id="pnl_campos">
+                  
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-    </div> <!-- /container -->
+        </div> <!-- row -->
+      </div> <!-- jumbotron -->
+    </div> <!-- container -->
 
-    <div class="modal modal-static fade" id="processing-modal" role="dialog" aria-hidden="true">
+    <!-- Static Modal Update Description -->
+    <div class="modal fade" id="window-update" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Actualizar Descripción</h4>
+              </div>
+
+              <div class="modal-body">
+                <label for="txtDescription">Descripción:</label>
+                <textarea id="txtDescription"class="form-control" rows="4" required></textarea>
+                <br>
+                <button id="btn_update" class="btn btn-lg btn-primary btn-block">Actualizar</button>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Static Modal Credits -->
+    <div class="modal fade" id="window-credits" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Créditos</h4>
+                 </div>
+
                 <div class="modal-body">
-                    <div class="text-center">
-                        <button type="button" class="close" style="float: none;" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h5 id="label-process">Procesando...</h5>
-                    </div>
+                    <center>
+                        <p><h3>Jorge Alberto Ponce Turrubiates</h3></p>
+                        <p><h5><a href="mailto:the.yorch@gmail.com<">the.yorch@gmail.com</a></h5></p>
+                        <p><h5><a href="http://the-yorch.blogspot.mx/">Blog</a></h5></p>
+                        <p><h5><a href="https://bitbucket.org/yorch81">BitBucket</a></h5></p>
+                        <p><h5><a href="https://github.com/yorch81">GitHub</a></h5></p>
+                        <p></p>
+                    </center>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="./metro-bootstrap/bootstrap.min.js"></script>
     <script src="./metro-bootstrap/bootstrap-tooltip.js"></script>
 
     <script>
       $(document).ready(function(){
-        $(".tbl_esquemas").tooltip();
+        // Aplicar ToolTip
+        $(".dicdb-tooltip").tooltip();
 
-        $(".tbl_esquemas").click(function(){
-          alert($(this).attr("tblComment"));
+        // Obtener HTML Tablas
+        function htmlTablas(esquema) {
+          url = "./htmltablas/" + esquema;
 
-          $('#processing-modal').modal('toggle');
+          $.get(url, function(response, status){
+                $("#pnl_tablas").html(response);
+                $(".dicdb-tooltip").tooltip();
+              }).error(
+                    function(){
+                        console.log('Application not responding');
+                    });
+        }
+
+        // Obtener HTML Campos
+        function htmlCampos (esquema, tabla) {
+          url = "./htmlcampos/" + esquema + "/" + tabla;
+
+          $.get(url, function(response, status){
+                $("#pnl_campos").html(response);
+                $(".dicdb-tooltip").tooltip();
+              }).error(
+                    function(){
+                        console.log('Application not responding');
+                    });
+        }
+
+        // Actualizar Comentarios
+        function actComentarios (esquema, tabla, campo, descripcion, tipo) {
+          $.post('./actualizar', {esquema:esquema, tabla:tabla, campo:campo, descripcion:descripcion, tipo:tipo},
+                        function(response) {
+                          console.log(response);
+                    }).error(
+                        function(){
+                            console.log('Error executing Post');
+                        }
+                    );
+        }
+
+        // Simple Click
+        $(document).on('click', '.dicdb-tooltip', function(){
+          tipo = $(this).attr("dicdb-type");
+          objeto = $(this).attr("dicdb-name");
+          arrObjeto = objeto.split('.');
+
+          switch (tipo) {
+            case '1': // Filtrar Tablas y Rutinas
+              htmlTablas(arrObjeto[0]); 
+              break;
+            case '2': // Filtrar Campos
+              htmlCampos(arrObjeto[0], arrObjeto[1]); 
+              break;
+          }
+        });
+
+        // Double Click
+        $(document).on('dblclick', '.dicdb-tooltip', function(event){
+          event.preventDefault();
+
+          tipo = $(this).attr("dicdb-type");
+          objeto = $(this).attr("dicdb-name");
+          comentario = $(this).attr("dicdb-comment");
+
+          arrObjeto = objeto.split('.');
+
+          $('#txtDescription').val(comentario);
+          $('#txtDescription').attr("dicdb-type", tipo); 
+          $('#txtDescription').attr("dicdb-name", objeto); 
+
+          $('#window-update').modal('toggle');
+
+          $('#txtDescription').focus();                        
+        });
+
+        // Actualizar
+        $("#btn_update").click(function() {
+          tipo = $('#txtDescription').attr("dicdb-type");
+          objeto = $('#txtDescription').attr("dicdb-name");
+          arrObjeto = objeto.split('.');
+
+          switch (tipo) {
+            case '1': // Esquemas
+              actComentarios (arrObjeto[0], '', '', $('#txtDescription').val(), 1);
+              break;
+
+            case '2': // Tablas
+              actComentarios (arrObjeto[0], arrObjeto[1], '', $('#txtDescription').val(), 2);
+              break;
+
+            case '3': // Campos
+              actComentarios (arrObjeto[0], arrObjeto[1], arrObjeto[2], $('#txtDescription').val(), 3);
+              break;
+          }
+
+          $('#window-update').modal('hide');
+        });
+
+        // Créditos
+        $("#btn_credits").click(function() {
+            $('#window-credits').modal('toggle');
         });
       });
     </script>

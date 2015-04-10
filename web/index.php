@@ -1,8 +1,9 @@
 <?php
+require "../vendor/autoload.php";
+
 require_once('../classes/config.php');
 require_once('../classes/DicDb.class.php');
-
-require "../vendor/autoload.php";
+require_once('../classes/Utils.class.php');
 
 \Slim\Slim::registerAutoloader();
 
@@ -13,11 +14,37 @@ $dicDb = DicDb::getInstance(DicDb::MSSQLSERVER, $hostname, $username, $password,
 // Root
 $app->get(
     '/',
-    function () use ($app) {
-        $app->redirect('./dicdb');
+    function () use ($app, $dicDb) {
+        $arrEsquemas = $dicDb->obtnEsquemas();
+        $htmlEsquemas = Utils::getHtmlEsquemas($arrEsquemas);
+
+        $app->view()->setData(array('esquemas' => $htmlEsquemas));
+        
+        $app->render('vw_dicdb.php');
     }
 );
 
+// Tablas HTML
+$app->get("/htmltablas/:esquema", 
+    function ($esquema) use ($app, $dicDb) {
+        $arrTablas= $dicDb->obtnTablas($esquema);
+        $htmlTablas= Utils::getHtmlTablas($arrTablas);
+
+        echo $htmlTablas;
+    }
+);
+
+// Campos HTML
+$app->get("/htmlcampos/:esquema/:tabla", 
+    function ($esquema, $tabla) use ($app, $dicDb) {
+        $arrCampos = $dicDb->obtnCampos($esquema, $tabla);
+        $htmlCampos = Utils::getHtmlCampos($arrCampos);
+
+        echo $htmlCampos;
+    }
+);
+
+// API
 // Esquemas
 $app->get(
     '/esquemas',
@@ -171,6 +198,7 @@ $app->post(
         $tipo = $app->request->post('tipo');
 
         try{
+            /*
             if (!$esquema){
                 throw new ResourceNotFoundException();
             }
@@ -190,9 +218,10 @@ $app->post(
             if (!$tipo){
                 throw new ResourceNotFoundException();
             }
+            */
 
             $app->response()->status(200);
-
+            
             $dicDb->actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo);
         }
         catch (ResourceNotFoundException $e) {
@@ -202,17 +231,6 @@ $app->post(
             $app->response()->status(400);
             $app->response()->header('X-Status-Reason', $e->getMessage());
         }
-    }
-);
-
-// DicDb
-$app->get("/dicdb", 
-    function () use ($app, $dicDb) {
-        $arrEsquemas = $dicDb->obtnEsquemas();
-
-        $app->view()->setData(array('esquemas' => $arrEsquemas));
-        
-        $app->render('vw_dicdb.php');
     }
 );
 

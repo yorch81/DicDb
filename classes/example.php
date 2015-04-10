@@ -3,7 +3,7 @@ require '../vendor/autoload.php';
 require_once('config.php');
 require_once('DicDb.class.php');
 
-$dic = DicDb::getInstance(DicDb::MYSQL, $hostname, $username, $password, $dbname);  
+$dic = DicDb::getInstance(DicDb::MSSQLSERVER, $hostname, $username, $password, $dbname);  
 
 echo "ESQUEMAS \n";
 print_r($dic->obtnEsquemas());
