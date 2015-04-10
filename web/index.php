@@ -34,6 +34,26 @@ $app->get("/htmltablas/:esquema",
     }
 );
 
+// HTML Procedimientos
+$app->get("/htmlproc/:esquema", 
+    function ($esquema) use ($app, $dicDb) {
+        $arrObjetos= $dicDb->obtnProcedimientos($esquema);
+        $htmlObjetos= Utils::getHtmlProcedures($arrObjetos);
+
+        echo $htmlObjetos;
+    }
+);
+
+// HTML Funciones
+$app->get("/htmlfunc/:esquema", 
+    function ($esquema) use ($app, $dicDb) {
+        $arrObjetos= $dicDb->obtnFunciones($esquema);
+        $htmlObjetos= Utils::getHtmlFunctions($arrObjetos);
+
+        echo $htmlObjetos;
+    }
+);
+
 // Campos HTML
 $app->get("/htmlcampos/:esquema/:tabla", 
     function ($esquema, $tabla) use ($app, $dicDb) {
@@ -44,7 +64,7 @@ $app->get("/htmlcampos/:esquema/:tabla",
     }
 );
 
-// API
+// API RESTFul
 // Esquemas
 $app->get(
     '/esquemas',

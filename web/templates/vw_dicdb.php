@@ -18,12 +18,12 @@
 
     <style>
     body {
-      padding-top: 10px;
-      padding-bottom: 10px;
+      padding-top: 5px;
+      padding-bottom: 5px;
     }
 
     .navbar {
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
     .list-group-item {
@@ -43,6 +43,10 @@
         background: #FFF;
         overflow: scroll;
         padding: 5px;
+      }
+
+    .jumbotron{
+        padding: 15px;
       }
     </style>
   </head>
@@ -65,7 +69,21 @@
         </div><!--/.container-fluid -->
       </div>
 
-      <div class="jumbotron">      
+      <div class="jumbotron">  
+        <div class="row">
+          <div class="col-md-4 col-lg-4">
+          </div>
+
+          <div class="col-md-8 col-lg-8">
+            <ul class="nav nav-pills nav-justified">
+              <li class="active" id="tab_tablas"><a href="#">Tablas</a>
+              </li>
+              <li id="tab_rutinas"><a href="#">Rutinas</a>
+              </li>
+            </ul>
+          </div>
+        </div>    
+
         <div class="row">
 
           <div class="col-md-4 col-lg-4">
@@ -81,23 +99,49 @@
             </div>
           </div>
 
-          <div class="col-md-4 col-lg-4">
-            <div id="cnt_tablas" class="scroll-500">
-              <div class="list-group">
-                <a href="#" data-toggle="tooltip" data-placement="right" title="Tablas" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Tablas">Tablas & Vistas</a>
-                <div id="pnl_tablas">
-                  
+          <div id="opt_tablas">
+            <div class="col-md-4 col-lg-4">
+              <div id="cnt_tablas" class="scroll-500">
+                <div class="list-group">
+                  <a href="#" data-toggle="tooltip" data-placement="right" title="Tablas" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Tablas">Tablas & Vistas</a>
+                  <div id="pnl_tablas">
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-lg-4">
+              <div id="cnt_campos" class="scroll-500">
+                <div class="list-group">
+                  <a href="#" data-toggle="tooltip" data-placement="right" title="Campos" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Campos">Campos</a>
+                  <div id="pnl_campos">
+                    
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-md-4 col-lg-4">
-            <div id="cnt_campos" class="scroll-500">
-              <div class="list-group">
-                <a href="#" data-toggle="tooltip" data-placement="right" title="Campos" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Campos">Campos</a>
-                <div id="pnl_campos">
-                  
+          <div id="opt_rutinas">
+            <div class="col-md-4 col-lg-4">
+              <div id="cnt_procedimientos" class="scroll-500">
+                <div class="list-group">
+                  <a href="#" data-toggle="tooltip" data-placement="right" title="Tablas" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Procedimientos">Procedimientos</a>
+                  <div id="pnl_procedimientos">
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-lg-4">
+              <div id="cnt_funciones" class="scroll-500">
+                <div class="list-group">
+                  <a href="#" data-toggle="tooltip" data-placement="right" title="Campos" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Funciones">Funciones</a>
+                  <div id="pnl_funciones">
+                    
+                  </div>
                 </div>
               </div>
             </div>
@@ -158,12 +202,41 @@
         // Aplicar ToolTip
         $(".dicdb-tooltip").tooltip();
 
+        // Ocultar Rutinas
+        $('#opt_rutinas').hide();
+
         // Obtener HTML Tablas
         function htmlTablas(esquema) {
           url = "./htmltablas/" + esquema;
 
           $.get(url, function(response, status){
                 $("#pnl_tablas").html(response);
+                $(".dicdb-tooltip").tooltip();
+              }).error(
+                    function(){
+                        console.log('Application not responding');
+                    });
+        }
+
+        // Obtener HTML Procedimientos
+        function htmlProcedimientos(esquema) {
+          url = "./htmlproc/" + esquema;
+
+          $.get(url, function(response, status){
+                $("#pnl_procedimientos").html(response);
+                $(".dicdb-tooltip").tooltip();
+              }).error(
+                    function(){
+                        console.log('Application not responding');
+                    });
+        }
+
+        // Obtener HTML Funciones
+        function htmlFunciones(esquema) {
+          url = "./htmlfunc/" + esquema;
+
+          $.get(url, function(response, status){
+                $("#pnl_funciones").html(response);
                 $(".dicdb-tooltip").tooltip();
               }).error(
                     function(){
@@ -205,7 +278,10 @@
           switch (tipo) {
             case '1': // Filtrar Tablas y Rutinas
               htmlTablas(arrObjeto[0]); 
+              htmlProcedimientos(arrObjeto[0]); 
+              htmlFunciones(arrObjeto[0]); 
               break;
+
             case '2': // Filtrar Campos
               htmlCampos(arrObjeto[0], arrObjeto[1]); 
               break;
@@ -249,6 +325,14 @@
             case '3': // Campos
               actComentarios (arrObjeto[0], arrObjeto[1], arrObjeto[2], $('#txtDescription').val(), 3);
               break;
+
+            case '4': // Procedimientos
+              actComentarios (arrObjeto[0], arrObjeto[1], '', $('#txtDescription').val(), 4);
+              break;
+
+            case '5': // Funciones
+              actComentarios (arrObjeto[0], arrObjeto[1], '', $('#txtDescription').val(), 5);
+              break;
           }
 
           $('#window-update').modal('hide');
@@ -256,8 +340,28 @@
 
         // Créditos
         $("#btn_credits").click(function() {
-            $('#window-credits').modal('toggle');
+          $('#window-credits').modal('toggle');
         });
+
+        // Tab Tablas
+        $("#tab_tablas").click(function() {
+          $('#opt_tablas').show();
+          $('#opt_rutinas').hide();
+
+          $("#tab_tablas").addClass("active");
+          $("#tab_rutinas").removeClass("active");
+          
+        });
+
+        // Tab Rutinas
+        $("#tab_rutinas").click(function() {
+          $('#opt_tablas').hide();
+          $('#opt_rutinas').show();
+
+          $("#tab_rutinas").addClass("active");
+          $("#tab_tablas").removeClass("active");
+        });
+
       });
     </script>
   </body>
