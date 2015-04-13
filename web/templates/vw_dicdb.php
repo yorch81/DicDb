@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Jorge Alberto Ponce Turrubiates">
+    <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.ico">
+
     <title>DicDb Data Dictionary</title>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

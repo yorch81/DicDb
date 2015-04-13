@@ -9,7 +9,15 @@ require_once('../classes/Utils.class.php');
 
 $app = new \Slim\Slim();
 
-$dicDb = DicDb::getInstance(DicDb::MSSQLSERVER, $hostname, $username, $password, $dbname);  
+// DicDb
+$dicDb = null;
+
+if ($dbtype == 'MSSQLSERVER') {
+    $dicDb = DicDb::getInstance(DicDb::MSSQLSERVER, $hostname, $username, $password, $dbname);
+}
+else {
+    $dicDb = DicDb::getInstance(DicDb::MYSQL, $hostname, $username, $password, $dbname);
+}
 
 // Root
 $app->get(
@@ -218,11 +226,10 @@ $app->post(
         $tipo = $app->request->post('tipo');
 
         try{
-            /*
             if (!$esquema){
                 throw new ResourceNotFoundException();
             }
-
+            /*
             if (!$tabla){
                 throw new ResourceNotFoundException();
             }
@@ -230,7 +237,7 @@ $app->post(
             if (!$campo){
                 throw new ResourceNotFoundException();
             }
-
+            */
             if (!$descripcion){
                 throw new ResourceNotFoundException();
             }
@@ -238,7 +245,6 @@ $app->post(
             if (!$tipo){
                 throw new ResourceNotFoundException();
             }
-            */
 
             $app->response()->status(200);
             
