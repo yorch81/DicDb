@@ -19,6 +19,18 @@ Clonar repositorio de Github, crear la base de datos dicdb, para crear las tabla
 guardaran los comentarios de Esquemas y Vistas ejecutando los scripts del directorio SQL para
 MySQL y SQL Server respectivamente.
 
+Ejecutar composer.phar install para instalar las dependencias necesarias.
+
+Crear en el directorio clases un script config.php, con la siguiente estructura:
+
+<?php
+$dbtype   = 'MYSQL'; // 'MSSQLSERVER'
+$hostname = 'localhost';
+$username = 'myuser';
+$password = 'mypassword';
+$dbname   = 'dicdb';
+?>
+
 ## Basic Example ##
 Ver example.php
 
