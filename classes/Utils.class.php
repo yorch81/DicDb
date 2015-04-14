@@ -73,7 +73,7 @@ class Utils
 	/**
 	 * Genera HTML de Procedimientos
 	 *
-	 * @param array $Procedures Array de Procedimientos de Base de Datos
+	 * @param array $arrProcedures Array de Procedimientos de Base de Datos
 	 * @return string
 	 */
 	public static function getHtmlProcedures($arrProcedures)
@@ -92,7 +92,7 @@ class Utils
 	/**
 	 * Genera HTML de Funciones
 	 *
-	 * @param array $Functions Array de Funciones de Base de Datos
+	 * @param array $arrFunctions Array de Funciones de Base de Datos
 	 * @return string
 	 */
 	public static function getHtmlFunctions($arrFunctions)
@@ -111,7 +111,7 @@ class Utils
 	/**
 	 * Genera HTML de Campos
 	 *
-	 * @param array $arrTablas Array de Campos de Base de Datos
+	 * @param array $arrCampos Array de Campos de Base de Datos
 	 * @return string
 	 */
 	public static function getHtmlCampos($arrCampos)

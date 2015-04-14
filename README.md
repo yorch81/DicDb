@@ -46,6 +46,8 @@ http://msdn.microsoft.com/es-es/library/ms180047.aspx
 http://msdn.microsoft.com/es-es/library/ms186885.aspx
 http://dev.mysql.com/doc/refman/5.0/es/information-schema-tables.html
 
+P.D. Let's go play !!!
+
 
 
 
