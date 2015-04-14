@@ -24,9 +24,8 @@ Ver example.php
 ## Notes ##
 La conexión a SQL Server solo funciona en MS Windows.
 Para MySQL ejecutar los scripts en la BD test.
-MySQL no soporta comentarios para schemas, views y triggers
-estoy viendo la manera de implementarlo con tablas que se
-almacenen en la BD test.
+MySQL no soporta comentarios para schemas para eso se 
+usa la tabla esquemas del esquema dicdb.
 
 ## References ##
 http://es.wikipedia.org/wiki/Singleton

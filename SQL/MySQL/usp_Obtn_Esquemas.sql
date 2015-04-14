@@ -18,7 +18,7 @@ BEGIN
 
 	SELECT @rownum := @rownum + 1 AS id
 		,SCHEMA_NAME AS esquema
-		,'' AS descripcion
+		,esquema_com(SCHEMA_NAME) AS descripcion
 	FROM INFORMATION_SCHEMA.SCHEMATA
 	WHERE SCHEMA_NAME NOT IN ('information_schema', 'mysql', 'performance_schema', 'test')
 	ORDER BY SCHEMA_NAME;

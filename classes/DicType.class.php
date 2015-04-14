@@ -246,7 +246,7 @@ class MySQLDic extends DicType
 		$retValue = false;
 
 		if ($this->_connection->isConnected()){
-			if ($tipo == 2 || $tipo == 3){
+			if ($tipo == 1 || $tipo == 2 || $tipo == 3 || $tipo == 6){
 				$query = sprintf("CALL usp_ActDescripcion ('%s','%s','%s','%s',%s);", 
 					 $this->_connection->escape($esquema),
 					 $this->_connection->escape($tabla),

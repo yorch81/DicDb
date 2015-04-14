@@ -3,8 +3,8 @@ require '../vendor/autoload.php';
 require_once('config.php');
 require_once('DicDb.class.php');
 
-$dic = DicDb::getInstance(DicDb::MSSQLSERVER, $hostname, $username, $password, $dbname);  
-
+$dic = DicDb::getInstance(DicDb::MYSQL, $hostname, $username, $password, $dbname);  
+/*
 echo "ESQUEMAS \n";
 print_r($dic->obtnEsquemas());
 
@@ -22,8 +22,8 @@ print_r($dic->obtnCampos('dbo', 'tabla'));
 
 echo "TRIGGERS \n";
 print_r($dic->obtnTriggers('Adquisicion', '*'));
-
+*/
 echo "ACTUALIZAR COMENTARIOS \n";
-$dic->actDescripcion('Adquisicion', 'Cat_Cancelaciones', '', 'desde DicDb', 2);
+$dic->actDescripcion('dicdb', 'vw_esquemas', '', 'Vista', 6);
 
 ?>

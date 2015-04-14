@@ -129,7 +129,7 @@
             <div class="col-md-4 col-lg-4">
               <div id="cnt_procedimientos" class="scroll-500">
                 <div class="list-group">
-                  <a href="#" data-toggle="tooltip" data-placement="right" title="Tablas" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Procedimientos">Procedimientos</a>
+                  <a href="#" data-toggle="tooltip" data-placement="right" title="Procedimientos" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Procedimientos">Procedimientos</a>
                   <div id="pnl_procedimientos">
                     
                   </div>
@@ -140,7 +140,7 @@
             <div class="col-md-4 col-lg-4">
               <div id="cnt_funciones" class="scroll-500">
                 <div class="list-group">
-                  <a href="#" data-toggle="tooltip" data-placement="right" title="Campos" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Funciones">Funciones</a>
+                  <a href="#" data-toggle="tooltip" data-placement="right" title="Funciones" class="list-group-item active dicdb-tooltip" dicdb-type="0" tblId="0" dicdb-comment="Funciones">Funciones</a>
                   <div id="pnl_funciones">
                     
                   </div>
@@ -334,6 +334,9 @@
 
             case '5': // Funciones
               actComentarios (arrObjeto[0], arrObjeto[1], '', $('#txtDescription').val(), 5);
+
+            case '6': // Vistas
+              actComentarios (arrObjeto[0], arrObjeto[1], '', $('#txtDescription').val(), 6);
               break;
           }
 
