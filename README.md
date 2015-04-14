@@ -1,4 +1,4 @@
-# DicDb Maneja y actualiza comentarios de objetos en una BD SQL Server o MySQL #
+# DicDb #
 
 ## Description ##
 Maneja Diccionario de Datos para SQL Server y MySQL, mediante una clase abstracta
@@ -15,17 +15,17 @@ y usando el Patrón de Diseño Singleton.
 En el código con phpDoc.
 
 ## Installation ##
-Copiar directorio o clonar repositorio.
-Ejecutar los scripts de los procedimientos almacenados para SQL Server y MySQL (directorio /SQL/).
+Clonar repositorio de Github, crear la base de datos dicdb, para crear las tablas donde se
+guardaran los comentarios de Esquemas y Vistas ejecutando los scripts del directorio SQL para
+MySQL y SQL Server respectivamente.
 
 ## Basic Example ##
 Ver example.php
 
 ## Notes ##
 La conexión a SQL Server solo funciona en MS Windows.
-Para MySQL ejecutar los scripts en la BD test.
-MySQL no soporta comentarios para schemas para eso se 
-usa la tabla esquemas del esquema dicdb.
+Para MySQL ejecutar los scripts en la BD dicdb.
+MySQL no soporta comentarios para schemas, ni vistas.
 
 ## References ##
 http://es.wikipedia.org/wiki/Singleton
