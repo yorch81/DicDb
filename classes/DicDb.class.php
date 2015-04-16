@@ -202,7 +202,7 @@ class DicDb
 	 * @param string $campo Campo
 	 * @param string $descripcion Nueva descripcion
 	 * @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
-	 * @return true | false
+	 * @return boolean
 	 */
 	public function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo)
 	{
@@ -219,7 +219,6 @@ class DicDb
 	/**
 	 * Return error when try clone object
 	 *
-	 * @return error
 	 */
 	public function __clone()
 	{
@@ -229,7 +228,6 @@ class DicDb
 	/**
 	 * Return error when try deserialize object
 	 *
-	 * @return error
 	 */
 	public function __wakeup()
 	{

@@ -12,7 +12,7 @@ y usando el Patrón de Diseño Singleton.
 * [Slim Framework](http://www.slimframework.com/)
 
 ## Developer Documentation ##
-En el código con phpDoc.
+Execute phpdoc -d classes/
 
 ## Installation ##
 Clonar repositorio de Github, crear la base de datos dicdb, para crear las tablas donde se

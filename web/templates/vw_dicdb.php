@@ -279,6 +279,7 @@
 
           switch (tipo) {
             case '1': // Filtrar Tablas y Rutinas
+              $("#pnl_campos").html('');
               htmlTablas(arrObjeto[0]); 
               htmlProcedimientos(arrObjeto[0]); 
               htmlFunciones(arrObjeto[0]); 
@@ -286,6 +287,10 @@
 
             case '2': // Filtrar Campos
               htmlCampos(arrObjeto[0], arrObjeto[1]); 
+              break;
+
+            case '6': // Borrar Campos
+              $("#pnl_campos").html('');
               break;
           }
         });

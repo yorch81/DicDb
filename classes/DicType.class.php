@@ -92,7 +92,7 @@ abstract class DicType
 	 * @param string $campo Campo
 	 * @param string $descripcion Nueva descripcion
 	 * @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
-	 * @return true | false
+	 * @return boolean
 	 */
 	public abstract function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo);
 
@@ -100,7 +100,7 @@ abstract class DicType
 	/**
  	 * Return if exists connection
 	 *
-	 * @return true | false
+	 * @return boolean
 	 */
 	public function isConnected()
 	{
@@ -127,7 +127,6 @@ class MySQLDic extends DicType
 	 * @param string $username Usuario de la BD
 	 * @param string $password Password de la BD
 	 * @param string $dbname Nombre de la BD
-	 * @return instance
 	 */
 	public function __construct($hostname, $username, $password, $dbname)
 	{
@@ -239,7 +238,7 @@ class MySQLDic extends DicType
 	 * @param string $campo Campo
 	 * @param string $descripcion Nueva descripcion
 	 * @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
-	 * @return true | false
+	 * @return boolean
 	 */
 	public function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo)
 	{
@@ -302,7 +301,6 @@ class SQLServerDic extends DicType
 	 * @param string $username Usuario de la BD
 	 * @param string $password Password de la BD
 	 * @param string $dbname Nombre de la BD
-	 * @return instance
 	 */
 	public function __construct($hostname, $username, $password, $dbname)
 	{
@@ -414,7 +412,7 @@ class SQLServerDic extends DicType
 	 * @param string $campo Campo
 	 * @param string $descripcion Nueva descripcion
 	 * @param int $tipo Tipo de Objeto (1 Esquema, 2 Tabla, 3 Campo, 4 Procedimiento, 5 Funcion, 6 Vista, 7 Trigger)
-	 * @return true | false
+	 * @return boolean
 	 */
 	public function actDescripcion($esquema, $tabla, $campo, $descripcion, $tipo)
 	{
