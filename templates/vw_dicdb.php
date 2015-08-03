@@ -16,7 +16,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link href="./metro-bootstrap/dist/css/metro-bootstrap.min.css" rel="stylesheet">
+    <link href="./metro-bootstrap/dist/css/metro-bootstrap.min.css" rel="stylesheet">    
 
     <style>
     body {
@@ -66,6 +66,7 @@
           </div>
 
           <ul class="nav navbar-nav navbar-right">
+            <li id="btn_reports"><a href="#">Reportes<span class="sr-only">(current)</span></a></li>
             <li class="active" id="btn_credits"><a href="#">Créditos<span class="sr-only">(current)</span></a></li>
           </ul>
         </div><!--/.container-fluid -->
@@ -184,7 +185,7 @@
                 <div class="modal-body">
                     <center>
                         <p><h3>Jorge Alberto Ponce Turrubiates</h3></p>
-                        <p><h5><a href="mailto:the.yorch@gmail.com<">the.yorch@gmail.com</a></h5></p>
+                        <p><h5><a href="mailto:the.yorch@gmail.com">the.yorch@gmail.com</a></h5></p>
                         <p><h5><a href="http://the-yorch.blogspot.mx/">Blog</a></h5></p>
                         <p><h5><a href="https://bitbucket.org/yorch81">BitBucket</a></h5></p>
                         <p><h5><a href="https://github.com/yorch81">GitHub</a></h5></p>
@@ -195,12 +196,46 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Static Modal Reports -->
+    <div class="modal fade" id="window-reports" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Elija Tipo de Reporte:</h4>
+                 </div>
+
+                <div class="modal-body">
+                    <center>
+                        <p>
+                          <a id="btn_pdf" href="#" class="btn btn-danger btn-md">
+                            <i class="fa fa-file-pdf-o fa-3x"></i>
+                            &nbspPDF&nbsp 
+                          </a>
+                        </p>
+                        <p>
+                          <a id="btn_excel" href="#" class="btn btn-success btn-md">
+                            <i class="fa fa-file-excel-o fa-3x"></i>
+                            Excel
+                          </a>
+                        </p>
+                        <p></p>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/jquery-1.9.1.js"></script>
     <script src="./metro-bootstrap/bootstrap.min.js"></script>
     <script src="./metro-bootstrap/bootstrap-tooltip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
     <script>
       $(document).ready(function(){
+        currentEsquema = "";
+
         // Aplicar ToolTip
         $(".dicdb-tooltip").tooltip();
 
@@ -277,6 +312,8 @@
           objeto = $(this).attr("dicdb-name");
           arrObjeto = objeto.split('.');
 
+          currentEsquema = arrObjeto[0];
+
           switch (tipo) {
             case '1': // Filtrar Tablas y Rutinas
               $("#pnl_campos").html('');
@@ -346,6 +383,29 @@
           }
 
           $('#window-update').modal('hide');
+        });
+
+        // Reportes
+        $("#btn_reports").click(function() {
+          if (currentEsquema.length > 0){
+            $('#window-reports').modal('toggle');
+          }
+          else
+            bootbox.alert("Seleccione un Esquema");
+        });
+
+        // PDF
+        $("#btn_pdf").click(function() {
+          if (currentEsquema.length > 0){
+            window.open("/pdf/" + currentEsquema);
+          }
+        });
+
+        // Excel
+        $("#btn_excel").click(function() {
+          if (currentEsquema.length > 0){
+            window.open("/excel/" + currentEsquema);
+          }
         });
 
         // Créditos

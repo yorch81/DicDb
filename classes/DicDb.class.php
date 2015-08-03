@@ -1,5 +1,6 @@
 <?php
 require_once('DicType.class.php');
+require_once('MyPDF.class.php');
 
 /**
  * DicDb 
@@ -55,6 +56,16 @@ class DicDb
      */
 	const MSSQLSERVER = 'SQLServerDic';
 	const MYSQL = 'MySQLDic';
+
+	/**
+     * Tipos de Reporte
+     *
+     * @const PDF For PDF
+     * @const XLS For Excel
+     * @access private
+     */
+	const PDF = 1;
+	const XLS = 2;
 
 	/**
 	 * Wrapper que maneja la clase diccionario
@@ -214,6 +225,284 @@ class DicDb
 		}
 
 		return $retValue;
+	}
+
+	/**
+	 * Muestra Reporte de un Esquema de Base de Datos
+	 * 
+	 * @param  string $esquema esquema
+	 * @param  int    $tipo    1 PDF 2 Excel
+	 * @return output
+	 */
+	public function reporte($esquema, $tipo=1)
+	{
+		// Si es PDF
+		if ($tipo == self::PDF){
+			$pdf = new MyPDF();
+
+			// Datos del Documento
+			$titulo = "Reporte de Esquema " . $esquema;
+			$pdf->SetTitle($titulo);
+			$pdf->SetAuthor('DicDb');
+
+			// Titulo del Esquema
+	        $pdf->AddPage();
+	        $pdf->SetFont('Arial','B',16);
+	        $pdf->Cell(40,10, $titulo);
+
+	        $pdf->Ln();
+
+	        // Tablas
+	        $pdf->Ln();
+	        $pdf->titleTable("Tablas & Vistas");
+	        $pdf->Ln();
+
+	        $aTablas = $this->obtnTablas($esquema);
+	        $tTablas = count($aTablas);
+
+	        $pdf->SetWidths(array(65, 50, 80));
+
+	        $pdf->SetFont('Arial','B',10);
+	        $pdf->Row(array("TABLA", "TIPO", "DESCRIPCION"));
+
+	        $pdf->SetFont('Arial','',10);
+			for($i=0;$i<$tTablas;$i++){
+				$tipo = $this->obtnTipo($aTablas[$i]["tipo"]);
+				$pdf->Row(array($aTablas[$i]["tabla"], $tipo, $aTablas[$i]["descripcion"]));
+			}
+
+			// Campos
+			$pdf->Ln();
+			$pdf->titleTable("Campos");
+	        $pdf->Ln();
+
+			for($i=0;$i<$tTablas;$i++){
+				$aCampos = $this->obtnCampos($esquema, $aTablas[$i]["tabla"]);
+				
+				$pdf->titleTable("Tabla: " . $aTablas[$i]["tabla"]);
+	        	$pdf->Ln();
+
+		        $pdf->SetWidths(array(66, 65, 65));
+
+		        $pdf->SetFont('Arial','B',10);
+	        	$pdf->Row(array("CAMPO", "TIPO", "DESCRIPCION"));
+
+	        	$pdf->SetFont('Arial','',10);
+		        $tCampos = count($aCampos);
+				for($j=0;$j<$tCampos;$j++)
+					$pdf->Row(array($aCampos[$j]["campo"], $aCampos[$j]["tipo"], $aCampos[$j]["descripcion"]));
+			}
+
+			// Procedimientos
+	        $pdf->Ln();
+	        $pdf->titleTable("Procedimientos Almacenados");
+	        $pdf->Ln();
+
+	        $aRutinas = $this->obtnProcedimientos($esquema);
+	        $tRutinas = count($aRutinas);
+
+	        $pdf->SetWidths(array(95, 95));
+
+	        $pdf->SetFont('Arial','B',10);
+	        $pdf->Row(array("OBJETO", "DESCRIPCION"));
+
+	        $pdf->SetFont('Arial','',10);
+			for($i=0;$i<$tRutinas;$i++)
+				$pdf->Row(array($aRutinas[$i]["objeto"], $aRutinas[$i]["descripcion"]));
+
+			// Funciones
+			$pdf->Ln();
+	        $pdf->titleTable("Funciones de Usuario");
+	        $pdf->Ln();
+
+	        $aRutinas = $this->obtnProcedimientos($esquema);
+	        $tRutinas = count($aRutinas);
+
+	        $pdf->SetWidths(array(95, 95));
+
+	        $pdf->SetFont('Arial','B',10);
+	        $pdf->Row(array("OBJETO", "DESCRIPCION"));
+
+	        $pdf->SetFont('Arial','',10);
+			for($i=0;$i<$tRutinas;$i++)
+				$pdf->Row(array($aRutinas[$i]["objeto"], $aRutinas[$i]["descripcion"]));
+
+	        $pdf->Output();
+		}
+		else{
+			$excel = new PHPExcel();
+
+			// Datos del Documento
+			$titulo = "Reporte de Esquema " . $esquema;
+	        $excel->getProperties()
+	                ->setCreator("DicDb")
+	                ->setLastModifiedBy("DicDb")
+	                ->setTitle($titulo)
+	                ->setSubject("Reporte")
+	                ->setDescription($titulo)
+	                ->setKeywords("Reporte")
+	                ->setCategory("Reporte");
+
+	        $excel->setActiveSheetIndex(0);
+
+	        $sheet = $excel->getActiveSheet();
+	        $sheet->setTitle($titulo);
+
+	        // Titulo del Esquema
+	        $cell = 2;
+	        $sheet->getStyle($this->celda('B', $cell))->getFont()->setBold(true);
+	        $sheet->setCellValue($this->celda('B', $cell), $titulo);
+	        
+	        $sheet->getColumnDimension('B')->setAutoSize(true);
+	        $sheet->getColumnDimension('C')->setAutoSize(true);
+	        $sheet->getColumnDimension('D')->setAutoSize(true);
+
+	        // Tablas
+	        $cell++;
+	        $cell++;
+	        $sheet->getStyle($this->celda('B', $cell))->getFont()->setBold(true);
+	        $sheet->setCellValue($this->celda('B', $cell), "Tablas & Vistas");
+
+	        $aTablas = $this->obtnTablas($esquema);
+	        $tTablas = count($aTablas);	        
+
+	        $cell++;
+	        $sheet->setCellValue($this->celda('B', $cell), "TABLA");
+	        $sheet->setCellValue($this->celda('C', $cell), "TIPO");
+	        $sheet->setCellValue($this->celda('D', $cell), "DESCRIPCION");
+
+	        $sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        $sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        $sheet->getStyle($this->celda('D', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+
+			for($i=0;$i<$tTablas;$i++){
+				$tipo = $this->obtnTipo($aTablas[$i]["tipo"]);
+
+				$cell++;
+				$sheet->setCellValue($this->celda('B', $cell), $aTablas[$i]["tabla"]);
+	        	$sheet->setCellValue($this->celda('C', $cell), $tipo);
+	        	$sheet->setCellValue($this->celda('D', $cell), $aTablas[$i]["descripcion"]);
+
+	        	$sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        	$sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        	$sheet->getStyle($this->celda('D', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+			}
+
+			// Campos
+			$cell++;
+	        $cell++;
+	        $sheet->getStyle($this->celda('B', $cell))->getFont()->setBold(true);
+	        $sheet->setCellValue($this->celda('B', $cell), "Campos");
+	        
+	        for($i=0;$i<$tTablas;$i++){
+				$aCampos = $this->obtnCampos($esquema, $aTablas[$i]["tabla"]);
+				
+				$cell++;
+	        	$cell++;
+	        	$sheet->getStyle($this->celda('B', $cell))->getFont()->setBold(true);
+	        	$sheet->setCellValue($this->celda('B', $cell), "Tabla: " . $aTablas[$i]["tabla"]);
+
+				$cell++;
+	        	$sheet->setCellValue($this->celda('B', $cell), "CAMPO");
+	        	$sheet->setCellValue($this->celda('C', $cell), "TIPO");
+	        	$sheet->setCellValue($this->celda('D', $cell), "DESCRIPCION");
+
+	        	$sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        	$sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        	$sheet->getStyle($this->celda('D', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+
+
+		        $tCampos = count($aCampos);
+				for($j=0;$j<$tCampos;$j++){
+					$cell++;
+		        	$sheet->setCellValue($this->celda('B', $cell), $aCampos[$j]["campo"]);
+		        	$sheet->setCellValue($this->celda('C', $cell), $aCampos[$j]["tipo"]);
+		        	$sheet->setCellValue($this->celda('D', $cell), $aCampos[$j]["descripcion"]);
+
+		        	$sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        		$sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        		$sheet->getStyle($this->celda('D', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+				}
+			}
+
+			// Procedimientos
+	        $cell++;
+	        $cell++;
+	        $sheet->getStyle($this->celda('B', $cell))->getFont()->setBold(true);
+	        $sheet->setCellValue($this->celda('B', $cell), "Procedimientos Almacenados");
+
+	        $aRutinas = $this->obtnProcedimientos($esquema);
+	        $tRutinas = count($aRutinas);       
+
+	        $cell++;
+	        $sheet->setCellValue($this->celda('B', $cell), "OBJETO");
+	        $sheet->setCellValue($this->celda('C', $cell), "DESCRIPCION");
+
+	        $sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        $sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+
+			for($i=0;$i<$tRutinas;$i++){
+				$cell++;
+				$sheet->setCellValue($this->celda('B', $cell), $aRutinas[$i]["objeto"]);
+	        	$sheet->setCellValue($this->celda('C', $cell), $aRutinas[$i]["descripcion"]);
+
+	        	$sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        	$sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+			}
+
+			// Funciones
+	        $cell++;
+	        $cell++;
+	        $sheet->getStyle($this->celda('B', $cell))->getFont()->setBold(true);
+	        $sheet->setCellValue($this->celda('B', $cell), "Funciones de Usuario");
+
+	        $aRutinas = $this->obtnFunciones($esquema);
+	        $tRutinas = count($aRutinas);       
+
+	        $cell++;
+	        $sheet->setCellValue($this->celda('B', $cell), "OBJETO");
+	        $sheet->setCellValue($this->celda('C', $cell), "DESCRIPCION");
+
+	        $sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        $sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+
+			for($i=0;$i<$tRutinas;$i++){
+				$cell++;
+				$sheet->setCellValue($this->celda('B', $cell), $aRutinas[$i]["objeto"]);
+	        	$sheet->setCellValue($this->celda('C', $cell), $aRutinas[$i]["descripcion"]);
+
+	        	$sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        	$sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+			}
+
+	        $excel->setActiveSheetIndex(0);
+	        
+	        $objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel5');
+	        $objWriter->save('php://output');
+		}
+	}
+
+	/**
+	 * Obtener TABLA o VISTA
+	 * 
+	 * @param  string $tipo T o V
+	 * @return string
+	 */
+	private function obtnTipo($tipo)
+	{
+		return $tipo == 'T' ? 'TABLA' : 'VISTA';
+	}
+
+	/**
+	 * Obtener Celda
+	 * 
+	 * @param  string $letra Letra de Celda
+	 * @param  int    $celda Numero de Celda
+	 * @return string
+	 */
+	private function celda($letra, $celda)
+	{
+		return $letra . strval($celda);
 	}
 
 	/**

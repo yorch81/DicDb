@@ -1,9 +1,9 @@
 <?php
-require "../vendor/autoload.php";
+require "vendor/autoload.php";
 
-require_once('../classes/config.php');
-require_once('../classes/DicDb.class.php');
-require_once('../classes/Utils.class.php');
+require_once('classes/config.php');
+require_once('classes/DicDb.class.php');
+require_once('classes/Utils.class.php');
 
 \Slim\Slim::registerAutoloader();
 
@@ -29,6 +29,31 @@ $app->get(
         $app->view()->setData(array('esquemas' => $htmlEsquemas));
         
         $app->render('vw_dicdb.php');
+    }
+);
+
+// Reporte PDF
+$app->get(
+    '/pdf/:esquema',
+    function ($esquema) use ($app, $dicDb) {
+        $app->response()->header('Content-Type', 'application/pdf');
+        $app->response()->status(200);
+
+        $dicDb->reporte($esquema, DicDb::PDF);
+    }
+);
+
+// Reporte Excel
+$app->get(
+    '/excel/:esquema',
+    function ($esquema) use ($app, $dicDb) {
+        $app->response()->status(200);
+        
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename=" ' . uniqid() . '.xls"');
+        header('Cache-Control: max-age=0');
+
+        $dicDb->reporte($esquema, DicDb::XLS);
     }
 );
 
