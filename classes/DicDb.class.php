@@ -360,6 +360,7 @@ class DicDb
 	        // Tablas
 	        $cell++;
 	        $cell++;
+	        $cell++;
 	        $sheet->getStyle($this->celda('B', $cell))->getFont()->setBold(true);
 	        $sheet->setCellValue($this->celda('B', $cell), "Tablas & Vistas");
 

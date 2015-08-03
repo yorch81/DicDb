@@ -23,6 +23,8 @@ Ejecutar composer.phar install para instalar las dependencias necesarias.
 
 Crear en el directorio clases un script config.php, con la siguiente estructura:
 
+~~~
+
 <?php
 $dbtype   = 'MYSQL'; // 'MSSQLSERVER'
 $hostname = 'localhost';
@@ -30,6 +32,8 @@ $username = 'myuser';
 $password = 'mypassword';
 $dbname   = 'dicdb';
 ?>
+
+~~~
 
 ## Basic Example ##
 Ver example.php
