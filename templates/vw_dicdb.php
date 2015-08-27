@@ -397,14 +397,14 @@
         // PDF
         $("#btn_pdf").click(function() {
           if (currentEsquema.length > 0){
-            window.open("/pdf/" + currentEsquema);
+            window.open("./pdf/" + currentEsquema);
           }
         });
 
         // Excel
         $("#btn_excel").click(function() {
           if (currentEsquema.length > 0){
-            window.open("/excel/" + currentEsquema);
+            window.open("./excel/" + currentEsquema);
           }
         });
 
