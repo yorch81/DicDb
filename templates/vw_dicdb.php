@@ -229,8 +229,8 @@
     <script src="./js/jquery-1.9.1.js"></script>
     <script src="./metro-bootstrap/bootstrap.min.js"></script>
     <script src="./metro-bootstrap/bootstrap-tooltip.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.js"></script>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="./js/bootbox.js"></script>
+    <link rel="stylesheet" href="./metro-bootstrap/font-awesome.min.css">
 
     <script>
       $(document).ready(function(){
