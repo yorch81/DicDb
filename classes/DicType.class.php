@@ -127,10 +127,11 @@ class MySQLDic extends DicType
 	 * @param string $username Usuario de la BD
 	 * @param string $password Password de la BD
 	 * @param string $dbname Nombre de la BD
+	 * @param int 	 $port   Puerto RDBMS
 	 */
-	public function __construct($hostname, $username, $password, $dbname)
+	public function __construct($hostname, $username, $password, $dbname, $port)
 	{
-		$this->_connection = MyDb::getConnection('MySQLDb', $hostname, $username, $password, $dbname);
+		$this->_connection = MyDb::getConnection('MySQLDb', $hostname, $username, $password, $dbname, $port);
 	}
 
 	/**
@@ -301,10 +302,11 @@ class SQLServerDic extends DicType
 	 * @param string $username Usuario de la BD
 	 * @param string $password Password de la BD
 	 * @param string $dbname Nombre de la BD
+	 * @param int 	 $port   Puerto RDBMS
 	 */
-	public function __construct($hostname, $username, $password, $dbname)
+	public function __construct($hostname, $username, $password, $dbname, $port)
 	{
-		$this->_connection = MyDb::getConnection('SQLServerDb', $hostname, $username, $password, $dbname);
+		$this->_connection = MyDb::getConnection('SQLServerDb', $hostname, $username, $password, $dbname, $port);
 	}
 
 	/**

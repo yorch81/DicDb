@@ -31,6 +31,7 @@ $hostname = 'localhost';
 $username = 'myuser';
 $password = 'mypassword';
 $dbname   = 'dicdb';
+$port     = 3306;
 ?>
 
 ~~~

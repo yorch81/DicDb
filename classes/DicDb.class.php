@@ -75,12 +75,13 @@ class DicDb
 	 * @param string $username Usuario de la BD
 	 * @param string $password Usuario de la BD
 	 * @param string $dbname Usuario de la BD
+	 * @param int 	 $port   Puerto RDBMS
 	 * @return resource | null
 	 */
-	private function __construct($dicType = self::MSSQLSERVER, $hostname, $username, $password, $dbname)
+	private function __construct($dicType = self::MSSQLSERVER, $hostname, $username, $password, $dbname, $port)
 	{
 		if(class_exists($dicType)){
-			$this->_dictionary = new $dicType($hostname, $username, $password, $dbname);
+			$this->_dictionary = new $dicType($hostname, $username, $password, $dbname, $port);
 
 			if(!$this->_dictionary->isConnected()){
 				$this->_dictionary = null;
@@ -99,9 +100,10 @@ class DicDb
 	 * @param string $username Usuario de la BD
 	 * @param string $password Usuario de la BD
 	 * @param string $dbname Usuario de la BD
+	 * @param int 	 $port   Puerto RDBMS
 	 * @return resource | null
 	 */
-	public static function getInstance($dicType = self::MSSQLSERVER, $hostname, $username, $password, $dbname)
+	public static function getInstance($dicType = self::MSSQLSERVER, $hostname, $username, $password, $dbname, $port)
 	{
 		// If exists Instance return same Instance
 		if(self::$_instance){
@@ -109,7 +111,7 @@ class DicDb
 		}
 		else{
 			$class = __CLASS__;
-			self::$_instance = new $class($dicType, $hostname, $username, $password, $dbname);
+			self::$_instance = new $class($dicType, $hostname, $username, $password, $dbname, $port);
 			return self::$_instance;
 		}
 	}

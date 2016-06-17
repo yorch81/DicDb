@@ -13,10 +13,10 @@ $app = new \Slim\Slim();
 $dicDb = null;
 
 if ($dbtype == 'MSSQLSERVER') {
-    $dicDb = DicDb::getInstance(DicDb::MSSQLSERVER, $hostname, $username, $password, $dbname);
+    $dicDb = DicDb::getInstance(DicDb::MSSQLSERVER, $hostname, $username, $password, $dbname, $port);
 }
 else {
-    $dicDb = DicDb::getInstance(DicDb::MYSQL, $hostname, $username, $password, $dbname);
+    $dicDb = DicDb::getInstance(DicDb::MYSQL, $hostname, $username, $password, $dbname, $port);
 }
 
 // Root
