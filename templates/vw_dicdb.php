@@ -50,6 +50,7 @@
     .jumbotron{
         padding: 15px;
       }
+
     </style>
   </head>
   <body>
@@ -67,7 +68,7 @@
 
           <ul class="nav navbar-nav navbar-right">
             <li id="btn_reports"><a href="#">Reportes<span class="sr-only">(current)</span></a></li>
-            <li class="active" id="btn_credits"><a href="#">Créditos<span class="sr-only">(current)</span></a></li>
+            <li class="active" id="btn_credits"><a href="#">Cr&eacute;ditos<span class="sr-only">(current)</span></a></li>
           </ul>
         </div><!--/.container-fluid -->
       </div>
@@ -79,9 +80,9 @@
 
           <div class="col-md-8 col-lg-8">
             <ul class="nav nav-pills nav-justified">
-              <li class="active" id="tab_tablas"><a href="#">Tablas</a>
+              <li class="active" id="tab_tablas"><a href="#"><h4>Tablas</h4></a>
               </li>
-              <li id="tab_rutinas"><a href="#">Rutinas</a>
+              <li id="tab_rutinas"><a href="#"><h4>Rutinas</h4></a>
               </li>
             </ul>
           </div>
@@ -160,11 +161,11 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Actualizar Descripción</h4>
+                <h4 class="modal-title">Actualizar Descripci&oacute;n</h4>
               </div>
 
               <div class="modal-body">
-                <label for="txtDescription">Descripción:</label>
+                <label for="txtDescription">Descripci&oacute;n:</label>
                 <textarea id="txtDescription"class="form-control" rows="4" required></textarea>
                 <br>
                 <button id="btn_update" class="btn btn-lg btn-primary btn-block">Actualizar</button>
@@ -179,7 +180,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Créditos</h4>
+                    <h4 class="modal-title">Cr&eacute;ditos</h4>
                  </div>
 
                 <div class="modal-body">
@@ -202,7 +203,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Elija Tipo de Reporte:</h4>
+                    <h4 class="modal-title">Seleccione Formato de Reporte:</h4>
                  </div>
 
                 <div class="modal-body">
@@ -235,6 +236,7 @@
     <script>
       $(document).ready(function(){
         currentEsquema = "";
+        currentObject = null;
 
         // Aplicar ToolTip
         $(".dicdb-tooltip").tooltip();
@@ -310,25 +312,29 @@
         $(document).on('click', '.dicdb-tooltip', function(){
           tipo = $(this).attr("dicdb-type");
           objeto = $(this).attr("dicdb-name");
-          arrObjeto = objeto.split('.');
 
-          currentEsquema = arrObjeto[0];
+          // Si no es header
+          if (typeof(objeto) != "undefined") {
+            arrObjeto = objeto.split('.');
 
-          switch (tipo) {
-            case '1': // Filtrar Tablas y Rutinas
-              $("#pnl_campos").html('');
-              htmlTablas(arrObjeto[0]); 
-              htmlProcedimientos(arrObjeto[0]); 
-              htmlFunciones(arrObjeto[0]); 
-              break;
+            currentEsquema = arrObjeto[0];
 
-            case '2': // Filtrar Campos
-              htmlCampos(arrObjeto[0], arrObjeto[1]); 
-              break;
+            switch (tipo) {
+              case '1': // Filtrar Tablas y Rutinas
+                $("#pnl_campos").html('');
+                htmlTablas(arrObjeto[0]); 
+                htmlProcedimientos(arrObjeto[0]); 
+                htmlFunciones(arrObjeto[0]); 
+                break;
 
-            case '6': // Borrar Campos
-              $("#pnl_campos").html('');
-              break;
+              case '2': // Filtrar Campos
+                htmlCampos(arrObjeto[0], arrObjeto[1]); 
+                break;
+
+              case '6': // Borrar Campos
+                $("#pnl_campos").html('');
+                break;
+            }
           }
         });
 
@@ -340,15 +346,20 @@
           objeto = $(this).attr("dicdb-name");
           comentario = $(this).attr("dicdb-comment");
 
-          arrObjeto = objeto.split('.');
+          if (typeof(objeto) != "undefined") {
+            arrObjeto = objeto.split('.');
 
-          $('#txtDescription').val(comentario);
-          $('#txtDescription').attr("dicdb-type", tipo); 
-          $('#txtDescription').attr("dicdb-name", objeto); 
+            $('#txtDescription').val(comentario);
+            $('#txtDescription').attr("dicdb-type", tipo); 
+            $('#txtDescription').attr("dicdb-name", objeto); 
 
-          $('#window-update').modal('toggle');
+            $('#window-update').modal('toggle');
 
-          $('#txtDescription').focus();                        
+            $('#txtDescription').focus();  
+
+            // Current Selection
+            currentObject = $(this);
+          }
         });
 
         // Actualizar
@@ -381,6 +392,11 @@
               actComentarios (arrObjeto[0], arrObjeto[1], '', $('#txtDescription').val(), 6);
               break;
           }
+
+          // update Current Selection
+          currentObject.attr("dicdb-comment", $('#txtDescription').val());
+          currentObject.attr("title", $('#txtDescription').val());
+          currentObject.attr("data-original-title", $('#txtDescription').val());
 
           $('#window-update').modal('hide');
         });
