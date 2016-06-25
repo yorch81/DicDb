@@ -32,6 +32,8 @@ $username = 'myuser';
 $password = 'mypassword';
 $dbname   = 'dicdb';
 $port     = 3306;
+$appUser  = "app_user";
+$appPassword  = "app_password";
 ?>
 
 ~~~

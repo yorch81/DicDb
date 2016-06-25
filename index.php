@@ -5,6 +5,12 @@ require_once('classes/config.php');
 require_once('classes/DicDb.class.php');
 require_once('classes/Utils.class.php');
 
+// Set Time Execution Limit
+set_time_limit (600);
+
+// Init Session
+session_start();
+
 \Slim\Slim::registerAutoloader();
 
 $app = new \Slim\Slim();
@@ -27,8 +33,40 @@ $app->get(
         $htmlEsquemas = Utils::getHtmlEsquemas($arrEsquemas);
 
         $app->view()->setData(array('esquemas' => $htmlEsquemas));
-        
-        $app->render('vw_dicdb.php');
+
+        if (isset($_SESSION["key"]))
+            $app->render('vw_dicdb.php');
+        else
+            $app->redirect('./login');
+    }
+);
+
+// Login View
+$app->get("/login", 
+    function () use ($app) {  
+        if (isset($_SESSION["key"]))
+            $app->redirect('./');
+
+        $app->render('vw_login.php');
+    }
+);
+
+// Login Post
+$app->post(
+    '/login',
+    function () use ($app, $appUser, $appPassword) {
+        $user = $app->request->post('txtUser');
+        $password = $app->request->post('txtPassword');
+
+        if ($user == $appUser && $password == $appPassword)
+            $_SESSION["key"] = "DicDb";
+        else
+            $_SESSION["error"] = "User or Password is incorrect";
+
+        if (isset($_SESSION["key"]))
+            $app->redirect('./');
+        else
+            $app->redirect('./login');
     }
 );
 
