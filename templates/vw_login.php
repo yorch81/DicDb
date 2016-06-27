@@ -64,13 +64,6 @@
 
   <body>
     <div class="container">
-      <?php 
-          if (isset($_SESSION["error"])) {?>
-          <div class="alert alert-danger" role="alert">
-            <strong>Login Error !!!</strong> User or Password is incorrect.
-          </div>
-      <?php }?>      
-      
       <form class="form-signin" role="form" action="./login" method="POST">
         <h2 class="form-signin-heading">DicDb Login</h2>
         <input type="text" class="form-control" placeholder="Application User" name="txtUser" required autofocus>
