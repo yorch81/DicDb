@@ -153,6 +153,17 @@
 
         </div> <!-- row -->
       </div> <!-- jumbotron -->
+
+      <footer class="footer">
+        <div class="navbar navbar-fixed-bottom">
+          <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="./exit"><button class="btn btn-primary">Salir</button></a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+
     </div> <!-- container -->
 
     <!-- Static Modal Update Description -->

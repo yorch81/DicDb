@@ -34,17 +34,26 @@ $app->get(
 
         $app->view()->setData(array('esquemas' => $htmlEsquemas));
 
-        if (isset($_SESSION["dicdb"]))
+        if (isset($_SESSION["key"]))
             $app->render('vw_dicdb.php');
         else
             $app->redirect('./login');
     }
 );
 
+$app->get(
+    '/exit',
+    function () use ($app, $dicDb) {
+        session_destroy();
+
+        $app->redirect('./login');
+    }
+);
+
 // Login View
 $app->get("/login", 
     function () use ($app) {  
-        if (isset($_SESSION["dicdb"]))
+        if (isset($_SESSION["key"]))
             $app->redirect('./');
 
         $app->render('vw_login.php');
@@ -59,11 +68,11 @@ $app->post(
         $password = $app->request->post('txtPassword');
 
         if ($user == $appUser && $password == $appPassword)
-            $_SESSION["dicdb"] = "DicDb";
+            $_SESSION["key"] = "DicDb";
         else
             $_SESSION["error"] = "User or Password is incorrect";
 
-        if (isset($_SESSION["dicdb"]))
+        if (isset($_SESSION["key"]))
             $app->redirect('./');
         else
             $app->redirect('./login');
