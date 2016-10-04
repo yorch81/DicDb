@@ -270,7 +270,7 @@ class DicDb
 	        $pdf->SetFont('Arial','',10);
 			for($i=0;$i<$tTablas;$i++){
 				$tipo = $this->obtnTipo($aTablas[$i]["tipo"]);
-				$pdf->Row(array($aTablas[$i]["tabla"], $tipo, utf8_decode($aTablas[$i]["descripcion"])));
+				$pdf->Row(array(utf8_decode($aTablas[$i]["tabla"]), $tipo, utf8_decode($aTablas[$i]["descripcion"])));
 			}
 
 			// Campos
@@ -292,7 +292,7 @@ class DicDb
 	        	$pdf->SetFont('Arial','',10);
 		        $tCampos = count($aCampos);
 				for($j=0;$j<$tCampos;$j++)
-					$pdf->Row(array($aCampos[$j]["campo"], $aCampos[$j]["tipo"], utf8_decode($aCampos[$j]["descripcion"])));
+					$pdf->Row(array(utf8_decode($aCampos[$j]["campo"]), $aCampos[$j]["tipo"], utf8_decode($aCampos[$j]["descripcion"])));
 			}
 
 			// Procedimientos
@@ -310,7 +310,7 @@ class DicDb
 
 	        $pdf->SetFont('Arial','',10);
 			for($i=0;$i<$tRutinas;$i++)
-				$pdf->Row(array($aRutinas[$i]["objeto"], utf8_decode($aRutinas[$i]["descripcion"])));
+				$pdf->Row(array(utf8_decode($aRutinas[$i]["objeto"]), utf8_decode($aRutinas[$i]["descripcion"])));
 
 			// Funciones
 			$pdf->Ln();
@@ -327,7 +327,7 @@ class DicDb
 
 	        $pdf->SetFont('Arial','',10);
 			for($i=0;$i<$tRutinas;$i++)
-				$pdf->Row(array($aRutinas[$i]["objeto"], utf8_decode($aRutinas[$i]["descripcion"])));
+				$pdf->Row(array(utf8_decode($aRutinas[$i]["objeto"]), utf8_decode($aRutinas[$i]["descripcion"])));
 
 	        $pdf->Output();
 		}
