@@ -322,7 +322,7 @@ class DicDb
 	        $pdf->titleTable("Funciones de Usuario");
 	        $pdf->Ln();
 
-	        $aRutinas = $this->obtnProcedimientos($esquema);
+	        $aRutinas = $this->obtnFunciones($esquema);
 	        $tRutinas = count($aRutinas);
 
 	        $pdf->SetWidths(array(95, 95));
