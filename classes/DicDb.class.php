@@ -234,16 +234,21 @@ class DicDb
 	 * 
 	 * @param  string $esquema esquema
 	 * @param  int    $tipo    1 PDF 2 Excel
+	 * @param  string $rtitulo Titulo de Reporte
 	 * @return output
 	 */
-	public function reporte($esquema, $tipo=1)
+	public function reporte($esquema, $tipo=1, $rtitulo="")
 	{
 		// Si es PDF
 		if ($tipo == self::PDF){
 			$pdf = new MyPDF();
 
 			// Datos del Documento
-			$titulo = "Reporte de Esquema " . $esquema;
+			if ($rtitulo=="")
+				$titulo = "Reporte de Esquema " . $esquema;
+			else
+				$titulo = $rtitulo;
+
 			$pdf->SetTitle($titulo);
 			$pdf->SetAuthor('DicDb');
 
@@ -335,20 +340,24 @@ class DicDb
 			$excel = new PHPExcel();
 
 			// Datos del Documento
-			$titulo = "Reporte de Esquema " . $esquema;
+			if ($rtitulo=="")
+				$titulo = "Reporte de Esquema " . $esquema;
+			else
+				$titulo = $rtitulo;
+
 	        $excel->getProperties()
 	                ->setCreator("DicDb")
 	                ->setLastModifiedBy("DicDb")
 	                ->setTitle($titulo)
 	                ->setSubject("Reporte")
-	                ->setDescription($titulo)
+	                ->setDescription("Reporte")
 	                ->setKeywords("Reporte")
 	                ->setCategory("Reporte");
 
 	        $excel->setActiveSheetIndex(0);
 
 	        $sheet = $excel->getActiveSheet();
-	        $sheet->setTitle($titulo);
+	        $sheet->setTitle("DicDb");
 
 	        // Titulo del Esquema
 	        $cell = 2;

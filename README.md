@@ -34,6 +34,7 @@ $dbname   = 'dicdb';
 $port     = 3306;
 $appUser  = "app_user";
 $appPassword  = "app_password";
+$reportTitle = 'Report Title';
 ?>
 
 ~~~

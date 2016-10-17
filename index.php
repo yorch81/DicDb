@@ -82,25 +82,25 @@ $app->post(
 // Reporte PDF
 $app->get(
     '/pdf/:esquema',
-    function ($esquema) use ($app, $dicDb) {
+    function ($esquema) use ($app, $dicDb, $reportTitle) {
         $app->response()->header('Content-Type', 'application/pdf');
         $app->response()->status(200);
 
-        $dicDb->reporte($esquema, DicDb::PDF);
+        $dicDb->reporte($esquema, DicDb::PDF, $reportTitle);
     }
 );
 
 // Reporte Excel
 $app->get(
     '/excel/:esquema',
-    function ($esquema) use ($app, $dicDb) {
+    function ($esquema) use ($app, $dicDb, $reportTitle) {
         $app->response()->status(200);
         
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename=" ' . uniqid() . '.xls"');
         header('Cache-Control: max-age=0');
 
-        $dicDb->reporte($esquema, DicDb::XLS);
+        $dicDb->reporte($esquema, DicDb::XLS, $reportTitle);
     }
 );
 
