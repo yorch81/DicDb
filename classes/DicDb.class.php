@@ -270,7 +270,7 @@ class DicDb
 	        $pdf->SetWidths(array(65, 50, 80));
 
 	        $pdf->SetFont('Arial','B',10);
-	        $pdf->Row(array("TABLA", "TIPO", "DESCRIPCION"));
+	        $pdf->Row(array("TABLA", "TIPO", utf8_decode("DESCRIPCIÓN")));
 
 	        $pdf->SetFont('Arial','',10);
 			for($i=0;$i<$tTablas;$i++){
@@ -286,14 +286,22 @@ class DicDb
 			for($i=0;$i<$tTablas;$i++){
 				$aCampos = $this->obtnCampos($esquema, $aTablas[$i]["tabla"]);
 				
-				$pdf->titleTable("Tabla: " . $aTablas[$i]["tabla"]);
-	        	$pdf->Ln();
+				if ($aTablas[$i]["tipo"] == 'T') {
+					$pdf->Ln();
+					$pdf->titleTable("Tabla: " . $aTablas[$i]["tabla"]);
+		        	$pdf->Ln();
 
-		        $pdf->SetWidths(array(66, 65, 65));
+			        $pdf->SetWidths(array(66, 65, 65));
 
-		        $pdf->SetFont('Arial','B',10);
-	        	$pdf->Row(array("CAMPO", "TIPO", "DESCRIPCION"));
-
+			        $pdf->SetFont('Arial','B',10);
+		        	$pdf->Row(array("CAMPO", "TIPO", utf8_decode("DESCRIPCIÓN")));
+				}
+				else {
+					$pdf->Ln();
+					$pdf->titleTable("Vista: " . $aTablas[$i]["tabla"]);
+		        	$pdf->Ln();
+				}
+				
 	        	$pdf->SetFont('Arial','',10);
 		        $tCampos = count($aCampos);
 				for($j=0;$j<$tCampos;$j++)
@@ -311,7 +319,7 @@ class DicDb
 	        $pdf->SetWidths(array(95, 95));
 
 	        $pdf->SetFont('Arial','B',10);
-	        $pdf->Row(array("OBJETO", "DESCRIPCION"));
+	        $pdf->Row(array("RUTINA", utf8_decode("DESCRIPCIÓN")));
 
 	        $pdf->SetFont('Arial','',10);
 			for($i=0;$i<$tRutinas;$i++)
@@ -328,7 +336,7 @@ class DicDb
 	        $pdf->SetWidths(array(95, 95));
 
 	        $pdf->SetFont('Arial','B',10);
-	        $pdf->Row(array("OBJETO", "DESCRIPCION"));
+	        $pdf->Row(array("RUTINA", utf8_decode("DESCRIPCIÓN")));
 
 	        $pdf->SetFont('Arial','',10);
 			for($i=0;$i<$tRutinas;$i++)
@@ -381,7 +389,7 @@ class DicDb
 	        $cell++;
 	        $sheet->setCellValue($this->celda('B', $cell), "TABLA");
 	        $sheet->setCellValue($this->celda('C', $cell), "TIPO");
-	        $sheet->setCellValue($this->celda('D', $cell), "DESCRIPCION");
+	        $sheet->setCellValue($this->celda('D', $cell), "DESCRIPCIÓN");
 
 	        $sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
 	        $sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
@@ -411,18 +419,24 @@ class DicDb
 				
 				$cell++;
 	        	$cell++;
-	        	$sheet->getStyle($this->celda('B', $cell))->getFont()->setBold(true);
-	        	$sheet->setCellValue($this->celda('B', $cell), "Tabla: " . $aTablas[$i]["tabla"]);
 
-				$cell++;
-	        	$sheet->setCellValue($this->celda('B', $cell), "CAMPO");
-	        	$sheet->setCellValue($this->celda('C', $cell), "TIPO");
-	        	$sheet->setCellValue($this->celda('D', $cell), "DESCRIPCION");
+	        	if ($aTablas[$i]["tipo"] == 'T') {
+	        		$sheet->getStyle($this->celda('B', $cell))->getFont()->setBold(true);
+		        	$sheet->setCellValue($this->celda('B', $cell), "Tabla: " . $aTablas[$i]["tabla"]);
 
-	        	$sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-	        	$sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-	        	$sheet->getStyle($this->celda('D', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+					$cell++;
+		        	$sheet->setCellValue($this->celda('B', $cell), "CAMPO");
+		        	$sheet->setCellValue($this->celda('C', $cell), "TIPO");
+		        	$sheet->setCellValue($this->celda('D', $cell), "DESCRIPCIÓN");
 
+		        	$sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		        	$sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		        	$sheet->getStyle($this->celda('D', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	        	}
+	        	else {
+	        		$sheet->getStyle($this->celda('B', $cell))->getFont()->setBold(true);
+		        	$sheet->setCellValue($this->celda('B', $cell), "Vista: " . $aTablas[$i]["tabla"]);
+	        	}
 
 		        $tCampos = count($aCampos);
 				for($j=0;$j<$tCampos;$j++){
@@ -447,8 +461,8 @@ class DicDb
 	        $tRutinas = count($aRutinas);       
 
 	        $cell++;
-	        $sheet->setCellValue($this->celda('B', $cell), "OBJETO");
-	        $sheet->setCellValue($this->celda('C', $cell), "DESCRIPCION");
+	        $sheet->setCellValue($this->celda('B', $cell), "RUTINA");
+	        $sheet->setCellValue($this->celda('C', $cell), "DESCRIPCIÓN");
 
 	        $sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
 	        $sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
@@ -472,8 +486,8 @@ class DicDb
 	        $tRutinas = count($aRutinas);       
 
 	        $cell++;
-	        $sheet->setCellValue($this->celda('B', $cell), "OBJETO");
-	        $sheet->setCellValue($this->celda('C', $cell), "DESCRIPCION");
+	        $sheet->setCellValue($this->celda('B', $cell), "RUTINA");
+	        $sheet->setCellValue($this->celda('C', $cell), "DESCRIPCIÓN");
 
 	        $sheet->getStyle($this->celda('B', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
 	        $sheet->getStyle($this->celda('C', $cell))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
